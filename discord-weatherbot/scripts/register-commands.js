@@ -12,16 +12,45 @@ const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 
 const commands = [
   {
-    name: 'analyze',
-    description: '天気予報・気象情報 を実行します',
+    name: 'weather',
+    description: '指定した場所の現在の天気を取得します',
     options: [
       {
-        name: 'input',
-        description: '処理したい内容を入力してください',
+        name: 'location',
+        description: '都市名を入力してください（例: 東京, Tokyo, New York）',
         type: 3, // STRING
         required: true,
       },
     ],
+  },
+  {
+    name: 'forecast',
+    description: '指定した場所の天気予報を取得します',
+    options: [
+      {
+        name: 'location',
+        description: '都市名を入力してください',
+        type: 3, // STRING
+        required: true,
+      },
+      {
+        name: 'days',
+        description: '予報日数を選択してください（1-5日）',
+        type: 4, // INTEGER
+        required: false,
+        choices: [
+          { name: '1日', value: 1 },
+          { name: '2日', value: 2 },
+          { name: '3日', value: 3 },
+          { name: '4日', value: 4 },
+          { name: '5日', value: 5 }
+        ]
+      }
+    ],
+  },
+  {
+    name: 'help',
+    description: 'Weatherbotの使い方を表示します',
   },
 ];
 

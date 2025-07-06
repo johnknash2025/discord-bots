@@ -77,12 +77,16 @@ async function handleSlashCommand(interaction, env) {
   const { data } = interaction;
   
   switch (data.name) {
-    case 'analyze':
-      return await handleAnalyzeCommand(interaction, env);
+    case 'weather':
+      return await handleWeatherCommand(interaction, env);
+    case 'forecast':
+      return await handleForecastCommand(interaction, env);
+    case 'help':
+      return await handleHelpCommand(interaction, env);
     default:
       return new Response(JSON.stringify({
         type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
-        data: { content: '未知のコマンドです。' }
+        data: { content: '未知のコマンドです。`/help` でコマンド一覧を確認してください。' }
       }), {
         headers: { 'Content-Type': 'application/json' },
       });
@@ -90,18 +94,60 @@ async function handleSlashCommand(interaction, env) {
 }
 
 /**
- * /analyze コマンドハンドラー
+ * /weather コマンドハンドラー
  */
-async function handleAnalyzeCommand(interaction, env) {
-  // 即座に応答（3秒制限対応）
+async function handleWeatherCommand(interaction, env) {
+  const options = interaction.data.options || [];
+  const locationOption = options.find(opt => opt.name === 'location');
+  
+  if (!locationOption) {
+    return new Response(JSON.stringify({
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      data: { 
+        content: '❌ 場所を指定してください。\n例: `/weather location:東京` または `/weather location:Tokyo`' 
+      }
+    }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const response = new Response(JSON.stringify({
     type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
   }), {
     headers: { 'Content-Type': 'application/json' },
   });
   
-  // バックグラウンドで処理実行
-  // TODO: 実際の処理ロジックを実装
+  handleWeatherSearch(interaction, env, locationOption.value);
+  
+  return response;
+}
+
+/**
+ * /forecast コマンドハンドラー
+ */
+async function handleForecastCommand(interaction, env) {
+  const options = interaction.data.options || [];
+  const locationOption = options.find(opt => opt.name === 'location');
+  const daysOption = options.find(opt => opt.name === 'days');
+  
+  if (!locationOption) {
+    return new Response(JSON.stringify({
+      type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+      data: { 
+        content: '❌ 場所を指定してください。\n例: `/forecast location:大阪 days:3`' 
+      }
+    }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  const response = new Response(JSON.stringify({
+    type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+  }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+  
+  handleForecastSearch(interaction, env, locationOption.value, daysOption?.value || 3);
   
   return response;
 }
