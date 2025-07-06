@@ -1,0 +1,32 @@
+{
+  "name": "discord-bots-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for managing multiple Discord bots",
+  "type": "module",
+  "main": "cli.js",
+  "bin": {
+    "discord-cli": "./cli.js"
+  },
+  "scripts": {
+    "cli": "node cli.js",
+    "list": "node cli.js list",
+    "install-all": "node cli.js install",
+    "build-all": "node cli.js build",
+    "clean-all": "node cli.js clean",
+    "status": "node cli.js status",
+    "test": "echo \"Run 'npm run cli test <bot-name>' to test specific bots\""
+  },
+  "keywords": [
+    "discord",
+    "bots",
+    "cli",
+    "management",
+    "cloudflare-workers",
+    "monorepo"
+  ],
+  "author": "Discord Bots Monorepo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
