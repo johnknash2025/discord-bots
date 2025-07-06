@@ -1,0 +1,17 @@
+name = "discord-weatherbot"
+main = "weatherbot.js"
+compatibility_date = "2023-10-30"
+
+[vars]
+# このファイルにはシークレットを保存しないでください。
+# シークレットは `wrangler secret put` コマンドで設定します。
+
+# 必要な環境変数:
+# DISCORD_PUBLIC_KEY = "Discord アプリの Public Key"
+# DISCORD_BOT_TOKEN = "Discord Bot の Token"  
+# GEMINI_API_KEY = "Google AI Studio の API Key"
+
+# 設定コマンド例:
+# wrangler secret put DISCORD_PUBLIC_KEY
+# wrangler secret put DISCORD_BOT_TOKEN
+# wrangler secret put GEMINI_API_KEY

@@ -1,0 +1,33 @@
+{
+  "name": "discord-mathbot",
+  "version": "1.0.0",
+  "description": "A Discord bot for 数学計算・グラフ描画",
+  "type": "module",
+  "main": "mathbot.js",
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "node tests/test-env.js",
+    "register-commands": "node scripts/register-commands.js"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "cloudflare-workers"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/discord-mathbot.git"
+  },
+  "dependencies": {
+    "tweetnacl": "^1.0.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
