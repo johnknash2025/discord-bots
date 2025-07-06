@@ -142,6 +142,19 @@ class CommandHandler {
       case 'clean':
         await this.cleanAll();
         break;
+
+      case 'terraform':
+      case 'tf':
+        await this.terraform(args[0], args.slice(1));
+        break;
+
+      case 'deploy-all':
+        await this.deployAll();
+        break;
+
+      case 'setup-terraform':
+        await this.setupTerraform();
+        break;
       
       case 'help':
       default:
@@ -266,6 +279,118 @@ class CommandHandler {
     }
   }
 
+  async terraform(command, args) {
+    const terraformDir = path.join(this.botManager.monorepoRoot, 'terraform');
+    
+    try {
+      await stat(terraformDir);
+    } catch (e) {
+      console.log(`${colors.red}❌ Terraform directory not found. Run './cli.js setup-terraform' first.${colors.reset}`);
+      return;
+    }
+
+    if (!command) {
+      console.log(`${colors.red}❌ Terraform command required. Use: ./cli.js terraform <command>${colors.reset}`);
+      console.log(`${colors.blue}Available commands: init, plan, apply, destroy, output, show${colors.reset}`);
+      return;
+    }
+
+    console.log(`${colors.green}🏗️  Running terraform ${command}...${colors.reset}`);
+    
+    switch (command) {
+      case 'init':
+        this.runInDirectory(terraformDir, 'terraform', ['init']);
+        break;
+      case 'plan':
+        this.runInDirectory(terraformDir, 'terraform', ['plan']);
+        break;
+      case 'apply':
+        this.runInDirectory(terraformDir, 'terraform', ['apply', ...args]);
+        break;
+      case 'destroy':
+        this.runInDirectory(terraformDir, 'terraform', ['destroy', ...args]);
+        break;
+      case 'output':
+        this.runInDirectory(terraformDir, 'terraform', ['output', ...args]);
+        break;
+      case 'show':
+        this.runInDirectory(terraformDir, 'terraform', ['show']);
+        break;
+      case 'workspace':
+        this.runInDirectory(terraformDir, 'terraform', ['workspace', ...args]);
+        break;
+      default:
+        this.runInDirectory(terraformDir, 'terraform', [command, ...args]);
+        break;
+    }
+  }
+
+  async deployAll() {
+    console.log(`${colors.green}🚀 Deploying all bots using Terraform...${colors.reset}`);
+    
+    const terraformDir = path.join(this.botManager.monorepoRoot, 'terraform');
+    
+    try {
+      await stat(terraformDir);
+    } catch (e) {
+      console.log(`${colors.red}❌ Terraform not set up. Run './cli.js setup-terraform' first.${colors.reset}`);
+      return;
+    }
+
+    console.log(`${colors.blue}1. Initializing Terraform...${colors.reset}`);
+    await this.runInDirectoryAsync(terraformDir, 'terraform', ['init']);
+    
+    console.log(`${colors.blue}2. Planning deployment...${colors.reset}`);
+    await this.runInDirectoryAsync(terraformDir, 'terraform', ['plan']);
+    
+    console.log(`${colors.blue}3. Applying changes...${colors.reset}`);
+    this.runInDirectory(terraformDir, 'terraform', ['apply']);
+  }
+
+  async setupTerraform() {
+    console.log(`${colors.green}🏗️  Setting up Terraform configuration...${colors.reset}`);
+    
+    const terraformDir = path.join(this.botManager.monorepoRoot, 'terraform');
+    
+    try {
+      await stat(terraformDir);
+      console.log(`${colors.yellow}⚠️  Terraform directory already exists.${colors.reset}`);
+    } catch (e) {
+      console.log(`${colors.red}❌ Terraform directory not found. Please ensure terraform/ directory exists.${colors.reset}`);
+      return;
+    }
+
+    // Check if terraform.tfvars exists
+    const tfvarsPath = path.join(terraformDir, 'terraform.tfvars');
+    try {
+      await stat(tfvarsPath);
+      console.log(`${colors.green}✅ terraform.tfvars already exists.${colors.reset}`);
+    } catch (e) {
+      console.log(`${colors.yellow}⚠️  terraform.tfvars not found.${colors.reset}`);
+      console.log(`${colors.blue}Please copy terraform.tfvars.example to terraform.tfvars and configure:${colors.reset}`);
+      console.log(`   cd terraform`);
+      console.log(`   cp terraform.tfvars.example terraform.tfvars`);
+      console.log(`   # Edit terraform.tfvars with your actual values`);
+    }
+
+    // Check if Terraform is installed
+    try {
+      await this.runInDirectoryAsync(terraformDir, 'terraform', ['version']);
+      console.log(`${colors.green}✅ Terraform is installed.${colors.reset}`);
+    } catch (e) {
+      console.log(`${colors.red}❌ Terraform not installed. Please install Terraform first.${colors.reset}`);
+      console.log(`${colors.blue}Installation: https://terraform.io/downloads${colors.reset}`);
+      return;
+    }
+
+    console.log(`${colors.green}🎯 Next steps:${colors.reset}`);
+    console.log(`   1. Configure terraform.tfvars with your API keys`);
+    console.log(`   2. Run: ./cli.js terraform init`);
+    console.log(`   3. Run: ./cli.js terraform plan`);
+    console.log(`   4. Run: ./cli.js terraform apply`);
+    console.log(`   5. Or use: ./cli.js deploy-all`);
+  }
+
   async showLogs(botName) {
     if (!botName) {
       console.log(`${colors.red}❌ Bot name required. Use: ./cli.js logs <bot-name>${colors.reset}`);
@@ -383,12 +508,21 @@ class CommandHandler {
     console.log(`  ${colors.green}status${colors.reset} [bot-name]           Show status of bot(s)`);
     console.log(`  ${colors.green}help${colors.reset}                        Show this help message\n`);
     
+    console.log(`${colors.bright}Terraform Commands:${colors.reset}`);
+    console.log(`  ${colors.cyan}setup-terraform${colors.reset}             Set up Terraform configuration`);
+    console.log(`  ${colors.cyan}terraform, tf${colors.reset} <command>     Run Terraform commands`);
+    console.log(`  ${colors.cyan}deploy-all${colors.reset}                  Deploy all bots using Terraform\n`);
+    
     console.log(`${colors.bright}Examples:${colors.reset}`);
     console.log(`  ./cli.js list`);
     console.log(`  ./cli.js dev cookbot`);
     console.log(`  ./cli.js deploy weatherbot`);
     console.log(`  ./cli.js install`);
     console.log(`  ./cli.js status`);
+    console.log(`  ./cli.js setup-terraform`);
+    console.log(`  ./cli.js terraform init`);
+    console.log(`  ./cli.js terraform plan`);
+    console.log(`  ./cli.js deploy-all`);
   }
 }
 

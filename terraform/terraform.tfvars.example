@@ -1,0 +1,57 @@
+# Terraform Variables Example File
+# Copy this to terraform.tfvars and fill in your actual values
+
+# Cloudflare Configuration
+cloudflare_api_token   = "your_cloudflare_api_token_here"
+cloudflare_account_id  = "your_cloudflare_account_id_here"
+cloudflare_zone_id     = "your_cloudflare_zone_id_here"  # Optional, for custom domains
+environment           = "prod"
+
+# Shared API Keys
+gemini_api_key        = "your_gemini_api_key_here"
+openweather_api_key   = "your_openweather_api_key_here"
+
+# Cookbot Discord Configuration
+cookbot_discord_public_key     = "your_cookbot_discord_public_key"
+cookbot_discord_bot_token      = "your_cookbot_discord_bot_token"
+cookbot_discord_application_id = "your_cookbot_discord_application_id"
+
+# Mathbot Discord Configuration
+mathbot_discord_public_key     = "your_mathbot_discord_public_key"
+mathbot_discord_bot_token      = "your_mathbot_discord_bot_token"
+mathbot_discord_application_id = "your_mathbot_discord_application_id"
+
+# Musicbot Discord Configuration
+musicbot_discord_public_key     = "your_musicbot_discord_public_key"
+musicbot_discord_bot_token      = "your_musicbot_discord_bot_token"
+musicbot_discord_application_id = "your_musicbot_discord_application_id"
+
+# Newsbot Discord Configuration
+newsbot_discord_public_key     = "your_newsbot_discord_public_key"
+newsbot_discord_bot_token      = "your_newsbot_discord_bot_token"
+newsbot_discord_application_id = "your_newsbot_discord_application_id"
+
+# Petbot Discord Configuration
+petbot_discord_public_key     = "your_petbot_discord_public_key"
+petbot_discord_bot_token      = "your_petbot_discord_bot_token"
+petbot_discord_application_id = "your_petbot_discord_application_id"
+
+# Quizbot Discord Configuration
+quizbot_discord_public_key     = "your_quizbot_discord_public_key"
+quizbot_discord_bot_token      = "your_quizbot_discord_bot_token"
+quizbot_discord_application_id = "your_quizbot_discord_application_id"
+
+# Reminderbot Discord Configuration
+reminderbot_discord_public_key     = "your_reminderbot_discord_public_key"
+reminderbot_discord_bot_token      = "your_reminderbot_discord_bot_token"
+reminderbot_discord_application_id = "your_reminderbot_discord_application_id"
+
+# Translatebot Discord Configuration
+translatebot_discord_public_key     = "your_translatebot_discord_public_key"
+translatebot_discord_bot_token      = "your_translatebot_discord_bot_token"
+translatebot_discord_application_id = "your_translatebot_discord_application_id"
+
+# Weatherbot Discord Configuration
+weatherbot_discord_public_key     = "your_weatherbot_discord_public_key"
+weatherbot_discord_bot_token      = "your_weatherbot_discord_bot_token"
+weatherbot_discord_application_id = "your_weatherbot_discord_application_id"
