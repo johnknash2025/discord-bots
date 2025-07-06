@@ -1,0 +1,50 @@
+# Production Environment Configuration
+# Copy this to prod.tfvars and fill in your actual values
+
+environment = "prod"
+
+# Cloudflare Configuration
+cloudflare_api_token   = "your_cloudflare_api_token_here"
+cloudflare_account_id  = "your_cloudflare_account_id_here"
+cloudflare_zone_id     = "your_cloudflare_zone_id_here"  # For custom domains
+
+# Shared API Keys
+gemini_api_key        = "your_gemini_api_key_here"
+openweather_api_key   = "your_openweather_api_key_here"
+
+# Production Discord Applications
+cookbot_discord_public_key     = "your_prod_cookbot_discord_public_key"
+cookbot_discord_bot_token      = "your_prod_cookbot_discord_bot_token"
+cookbot_discord_application_id = "your_prod_cookbot_discord_application_id"
+
+mathbot_discord_public_key     = "your_prod_mathbot_discord_public_key"
+mathbot_discord_bot_token      = "your_prod_mathbot_discord_bot_token"
+mathbot_discord_application_id = "your_prod_mathbot_discord_application_id"
+
+musicbot_discord_public_key     = "your_prod_musicbot_discord_public_key"
+musicbot_discord_bot_token      = "your_prod_musicbot_discord_bot_token"
+musicbot_discord_application_id = "your_prod_musicbot_discord_application_id"
+
+newsbot_discord_public_key     = "your_prod_newsbot_discord_public_key"
+newsbot_discord_bot_token      = "your_prod_newsbot_discord_bot_token"
+newsbot_discord_application_id = "your_prod_newsbot_discord_application_id"
+
+petbot_discord_public_key     = "your_prod_petbot_discord_public_key"
+petbot_discord_bot_token      = "your_prod_petbot_discord_bot_token"
+petbot_discord_application_id = "your_prod_petbot_discord_application_id"
+
+quizbot_discord_public_key     = "your_prod_quizbot_discord_public_key"
+quizbot_discord_bot_token      = "your_prod_quizbot_discord_bot_token"
+quizbot_discord_application_id = "your_prod_quizbot_discord_application_id"
+
+reminderbot_discord_public_key     = "your_prod_reminderbot_discord_public_key"
+reminderbot_discord_bot_token      = "your_prod_reminderbot_discord_bot_token"
+reminderbot_discord_application_id = "your_prod_reminderbot_discord_application_id"
+
+translatebot_discord_public_key     = "your_prod_translatebot_discord_public_key"
+translatebot_discord_bot_token      = "your_prod_translatebot_discord_bot_token"
+translatebot_discord_application_id = "your_prod_translatebot_discord_application_id"
+
+weatherbot_discord_public_key     = "your_prod_weatherbot_discord_public_key"
+weatherbot_discord_bot_token      = "your_prod_weatherbot_discord_bot_token"
+weatherbot_discord_application_id = "your_prod_weatherbot_discord_application_id"

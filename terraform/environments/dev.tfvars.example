@@ -1,0 +1,24 @@
+# Development Environment Configuration
+# Copy this to dev.tfvars and fill in your actual values
+
+environment = "dev"
+
+# Cloudflare Configuration
+cloudflare_api_token   = "your_cloudflare_api_token_here"
+cloudflare_account_id  = "your_cloudflare_account_id_here"
+cloudflare_zone_id     = ""  # Optional for dev
+
+# Shared API Keys
+gemini_api_key        = "your_gemini_api_key_here"
+openweather_api_key   = "your_openweather_api_key_here"
+
+# Development Discord Applications (separate from production)
+cookbot_discord_public_key     = "your_dev_cookbot_discord_public_key"
+cookbot_discord_bot_token      = "your_dev_cookbot_discord_bot_token"
+cookbot_discord_application_id = "your_dev_cookbot_discord_application_id"
+
+mathbot_discord_public_key     = "your_dev_mathbot_discord_public_key"
+mathbot_discord_bot_token      = "your_dev_mathbot_discord_bot_token"
+mathbot_discord_application_id = "your_dev_mathbot_discord_application_id"
+
+# Add other bots as needed for development...
